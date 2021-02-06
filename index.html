@@ -49,7 +49,28 @@
   </div>
 
   <script type="text/x-template" id="home">
-  <h1>Article</h1>
+    <div class="home-container">
+      <h1>Articles</h1>
+
+      <!-- search display-->
+
+      <!-- cards display-->
+      <div class="card-cart-container">
+        <div class="card-container">
+          <div v-for="product in products" class="card">
+            <div class="img-container">
+              <img v-bind:src="product.img" alt="image d'un produit">
+            </div>
+            <div class="card-text">
+              <h3>{{product.description}}</h3>
+              <span>{{product.price}}</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      
+    </div>
   </script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
