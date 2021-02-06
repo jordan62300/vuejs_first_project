@@ -103,7 +103,8 @@
         <transition name="cart-anim"> 
         <div v-if="carts.length > 0"  class="shopping-cart" id="shopping-cart">
           <h2>Panier</h2>
-          <div class="item-group">
+
+          <transition-group name="item-anim" tag="div" class="item-group">
             <div v-for="cart , id in carts" class="item" :key="cart.id">
               <div class="img-container">
                <img v-bind:src="cart.img" alt="Produit du panier">
@@ -129,7 +130,7 @@
                 </div>
              </div>
            </div>
-          </div>
+          </transition-group>
           <div class="grand-total">
             <div class="total">
               <h2>{{cartTotalAmount}}€</h2>

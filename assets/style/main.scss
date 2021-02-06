@@ -454,19 +454,21 @@ nav {
     &-leave-to {
       opacity: 0;
       transform: translateX(-400px);
+      transition: 1.2s;
     }
   }
   .item-anim {
     &-enter-active,
     &-leave-active {
-      opacity: 1;
+      transform: scale(1);
       transition: 0.8s;
     }
-    &-enter,
+    &-enter {
+      transition: 0.3s;
+    }
     &-leave-to {
-      opacity: 0;
-      transform: translateY(100px);
-      transition: 0.7s;
+      transform: scale(0);
+      transition: 0.3s;
     }
   }
 }

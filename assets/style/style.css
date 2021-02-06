@@ -405,16 +405,19 @@ nav .nav-container #icons i:hover {
 }
 .home-container .cart-anim-enter, .home-container .cart-anim-leave-to {
   opacity: 0;
-  transform: translateX(400px);
+  transform: translateX(-400px);
+  transition: 1.2s;
 }
 .home-container .item-anim-enter-active, .home-container .item-anim-leave-active {
-  opacity: 1;
+  transform: scale(1);
   transition: 0.8s;
 }
-.home-container .item-anim-enter, .home-container .item-anim-leave-to {
-  opacity: 0;
-  transform: translateY(100px);
-  transition: 0.7s;
+.home-container .item-anim-enter {
+  transition: 0.3s;
+}
+.home-container .item-anim-leave-to {
+  transform: scale(0);
+  transition: 0.3s;
 }
 
 @keyframes scaler {
