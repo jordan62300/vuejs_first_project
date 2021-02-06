@@ -59,6 +59,7 @@
       </span>
 
       <!-- cards display-->
+    
       <div class="card-cart-container">
         <div class="card-container">
           <div v-for="product in filteredList" class="card">
@@ -99,6 +100,7 @@
           </div>
         </div>
         <!-- Cart display -->
+        <transition name="cart-anim"> 
         <div v-if="carts.length > 0"  class="shopping-cart" id="shopping-cart">
           <h2>Panier</h2>
           <div class="item-group">
@@ -128,7 +130,14 @@
              </div>
            </div>
           </div>
+          <div class="grand-total">
+            <div class="total">
+              <h2>{{cartTotalAmount}}€</h2>
+            </div>
+            <h6>Total articles : {{itemTotalAmountInCart}}</h6>
+          </div>
         </div>
+      </transition>
       </div>
     </div>
   </script>

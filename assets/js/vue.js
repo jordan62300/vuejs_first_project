@@ -36,6 +36,20 @@ const Home = {
             let cookieValue = JSON.parse($cookies.get("like"));
             cookieValue == null ? this.liked = [] : this.liked = cookieValue
         },
+        cartTotalAmount(){
+            let total = 0;
+            for (let item in this.carts) {
+                total = total + (this.carts[item].quantity * this.carts[item].price)
+            }
+            return total;
+        },
+        itemTotalAmountInCart(){
+            let itemTotal = 0
+            for(let item in this.carts) {
+                itemTotal += (this.carts[item].quantity)
+            }
+            return itemTotal;
+        }
 
 
     },
@@ -78,7 +92,8 @@ const Home = {
         removeFromCart(id){
          //   this.carts.splice(this.carts.indexOf(cart),1)
          this.$delete(this.carts,id)
-        }
+        },
+
     },
 
 
