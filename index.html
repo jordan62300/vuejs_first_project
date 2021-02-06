@@ -32,7 +32,7 @@
           <li>
             <router-link to="/wish-list">
               <i class="fas fa-heart"></i>
-              <span id="nav-notif"></span>
+              <span id="nav-not"></span>
             </router-link>
           </li>
           <li>
@@ -54,6 +54,9 @@
 
       <!-- search display-->
       <input v-model="searchKey" type="search" id="search" placeholder="Rechercher..." autocomplete="off">
+      <span v-if="searchKey && filteredList.length > 0">
+        {{filteredList.length}} résultat<span v-if="searchKey && filteredList.length > 1">s</span>
+      </span>
 
       <!-- cards display-->
       <div class="card-cart-container">
@@ -73,6 +76,9 @@
                 type="checkbox"
                 name="checkbox"
                 v-bind:id="product.id"
+                :value="product.id"
+                v-model="liked"
+                @click="setLikeCookie()"
                 />
                 <label v-bind:for="product.id">
                   <i class="fas fa-heart"></i>
@@ -80,19 +86,55 @@
               </div>
 
               <div class="add-to-cart">
-                <button>
+                <button @click='addToCart(product)'>
                   <i class="fas fa-shopping-cart"></i>
                 </button>
               </div>
             </div>
           </div>
+          <!-- No result message-->
+          <div v-if="searchKey && filteredList.length == []" class="no-result">
+            <h3>Désolé</h3>
+            <p>Aucun résultat trouvé</p>
+          </div>
+        </div>
+        <!-- Cart display -->
+        <div v-if="carts.length > 0"  class="shopping-cart" id="shopping-cart">
+          <h2>Panier</h2>
+          <div class="item-group">
+            <div v-for="cart , id in carts" class="item" :key="cart.id">
+              <div class="img-container">
+               <img v-bind:src="cart.img" alt="Produit du panier">
+              </div>
+
+              <div class="item-description">
+               <h4>{{cart.description}}</h4>
+               <p>{{cart.price}}€</p>
+              </div>
+              <div class="item-quantity">
+                <h6>quantité: {{cart.quantity}}</h6>
+            
+                <div class="cart-icons">
+                 <button @click="cartPlusOne(cart)">
+                    <i  class="fa fa-plus"></i>
+                 </button>
+                 <button @click="cartMinusOne(cart , id)">
+                    <i class="fa fa-minus"></i>
+                 </button>
+                 <button @click="removeFromCart(id)">
+                    <i   class="fa fa-trash"></i>
+                  </button>
+                </div>
+             </div>
+           </div>
+          </div>
         </div>
       </div>
-      
     </div>
   </script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <script src="https://unpkg.com/vue-cookies@1.7.4/vue-cookies.js"></script>
   <script src="./assets/js/vue.js"></script>
   <script src="./assets/js/script.js"></script>
 </body>

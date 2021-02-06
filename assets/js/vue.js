@@ -21,6 +21,8 @@ const Home = {
         return{
         products,
         searchKey : '',
+        liked: [],
+        carts : []
         }
     }, 
     computed: {
@@ -28,10 +30,60 @@ const Home = {
             return this.products.filter((product) => {
                 return product.description.toLowerCase().includes(this.searchKey.toLowerCase())
             })
-        }
+        },
+
+        getLikeCookie(){
+            let cookieValue = JSON.parse($cookies.get("like"));
+            cookieValue == null ? this.liked = [] : this.liked = cookieValue
+        },
+
+
     },
     methods: {
+        setLikeCookie() {
+            document.addEventListener('input', () => {
+                setTimeout(() => {
+                    $cookies.set('like', JSON.stringify(this.liked))
+                },300);
+            })
+        },
+        addToCart(product) {
+            // Check if already in cart array
+            for(let i = 0 ; i < this.carts.length  ; i++){
+                if(this.carts[i].id ==  product.id){
+                    return this.carts[i].quantity++
+                }
+            }
 
+            this.carts.push({
+                id: product.id,
+                img: product.img,
+                description: product.description,
+                price: product.price,
+                quantity:1
+            })
+        },
+        cartPlusOne(cart){
+            cart.quantity = cart.quantity + 1
+        },
+
+        cartMinusOne(cart,id){
+            if(cart.quantity == 1) {
+            this.removeFromCart(id)
+            } else{
+            cart.quantity = cart.quantity-1;
+            }
+        },
+
+        removeFromCart(id){
+         //   this.carts.splice(this.carts.indexOf(cart),1)
+         this.$delete(this.carts,id)
+        }
+    },
+
+
+    mounted : function(){ 
+        this.getLikeCookie;
     }
 }
 
